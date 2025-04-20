@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Хронология правителей России</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="css.css" />
+</head>
+<body>
+    <header style="background: linear-gradient(135deg, #2c3e50, #3498db); color: white; text-align: center; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Хронология правителей России</h1>
+        <p style="font-size: 1.2rem; opacity: 0.9;">Система хранения и представления ключевых исторических событий в пространственно-временной взаимосвязи</p>
+    </header>
+
+    <div class="container">
+        <nav class="rulers-sidebar">
+            <h2>Правители России</h2>
+            <ul class="rulers-list">
+                <li><a href="#rurik" class="ruler-link" data-period="early">Рюрик (862-879)</a></li>
+                <li><a href="#oleg" class="ruler-link" data-period="early">Олег Вещий (879-912)</a></li>
+                <li><a href="#vladimir1" class="ruler-link" data-period="early">Владимир Святой (980-1015)</a></li>
+                <li><a href="#yaroslav" class="ruler-link" data-period="early">Ярослав Мудрый (1019-1054)</a></li>
+                <li><a href="#alexander" class="ruler-link" data-period="early">Александр Невский (1252-1263)</a></li>
+                <li><a href="#dmitry" class="ruler-link" data-period="early">Дмитрий Донской (1359-1389)</a></li>
+                <li><a href="#ivan3" class="ruler-link" data-period="early">Иван III Великий (1462-1505)</a></li>
+                <li><a href="#ivan4" class="ruler-link" data-period="tsardom">Иван IV Грозный (1533-1584)</a></li>
+                <li><a href="#boris" class="ruler-link" data-period="tsardom">Борис Годунов (1598-1605)</a></li>
+                <li><a href="#mikhail" class="ruler-link" data-period="tsardom">Михаил Фёдорович (1613-1645)</a></li>
+                <li><a href="#alexei" class="ruler-link" data-period="tsardom">Алексей Михайлович (1645-1676)</a></li>
+                <li><a href="#peter1" class="ruler-link" data-period="empire">Пётр I Великий (1682-1725)</a></li>
+                <li><a href="#catherine2" class="ruler-link" data-period="empire">Екатерина II Великая (1762-1796)</a></li>
+                <li><a href="#alexander1" class="ruler-link" data-period="empire">Александр I (1801-1825)</a></li>
+                <li><a href="#alexander2" class="ruler-link" data-period="empire">Александр II (1855-1881)</a></li>
+                <li><a href="#nicholas2" class="ruler-link" data-period="empire">Николай II (1894-1917)</a></li>
+                <li><a href="#lenin" class="ruler-link" data-period="soviet">В.И. Ленин (1917-1924)</a></li>
+                <li><a href="#stalin" class="ruler-link" data-period="soviet">И.В. Сталин (1924-1953)</a></li>
+                <li><a href="#khrushchev" class="ruler-link" data-period="soviet">Н.С. Хрущёв (1953-1964)</a></li>
+                <li><a href="#brezhnev" class="ruler-link" data-period="soviet">Л.И. Брежнев (1964-1982)</a></li>
+                <li><a href="#gorbachev" class="ruler-link" data-period="soviet">М.С. Горбачёв (1985-1991)</a></li>
+                <li><a href="#yeltsin" class="ruler-link" data-period="modern">Б.Н. Ельцин (1991-1999)</a></li>
+                <li><a href="#putin" class="ruler-link" data-period="modern">В.В. Путин (2000-н.в.)</a></li>
+            </ul>
+
+            <div class="filters">
+                <h2 style="margin-top: 30px;">Фильтры</h2>
+                <div class="filter-group">
+                    <h3>Период</h3>
+                    <div class="filter-options">
+                        <button class="filter-btn period-filter active" data-period="all">Все</button>
+                        <button class="filter-btn period-filter" data-period="early">Ранний (862-1547)</button>
+                        <button class="filter-btn period-filter" data-period="tsardom">Царство (1547-1721)</button>
+                        <button class="filter-btn period-filter" data-period="empire">Империя (1721-1917)</button>
+                        <button class="filter-btn period-filter" data-period="soviet">Советский (1917-1991)</button>
+                        <button class="filter-btn period-filter" data-period="modern">Современный (с 1991)</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <h3>Тип события</h3>
+                    <div class="filter-options">
+                        <button class="filter-btn type-filter active" data-type="all">Все</button>
+                        <button class="filter-btn type-filter" data-type="war">Войны</button>
+                        <button class="filter-btn type-filter" data-type="reform">Реформы</button>
+                        <button class="filter-btn type-filter" data-type="culture">Культура</button>
+                        <button class="filter-btn type-filter" data-type="territory">Территории</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="timeline">
+            <div class="timeline-dates">
+                <div class="timeline-date">862</div>
+                <div class="timeline-date">1547</div>
+                <div class="timeline-date">1721</div>
+                <div class="timeline-date">1917</div>
+                <div class="timeline-date">1991</div>
+                <div class="timeline-date">2023</div>
+            </div>
+
+            <!-- Интерактивная карта -->
+            <div id="history-map"></div>
+
+            <div class="period-block" data-period="early">
+                <h3>Ранний период (862-1547)</h3>
+                <p>Формирование древнерусского государства, период раздробленности, монголо-татарское иго и становление Московского княжества.</p>
+            </div>
+
+            <div class="event-card left" id="rurik" data-period="early" data-types="rule">
+                <h3>Рюрик (862-879)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Новгород</div>
+                <p>Основные события:</p>
+                <ul>
+                    <li>862 - Начало княжения</li>
+                    <li>Основание династии Рюриковичей</li>
+                    <li>Объединение северных славянских племён</li>
+                </ul>
+                <button class="more-info" data-ruler="rurik">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="oleg" data-period="early" data-types="war,territory">
+                <h3>Олег Вещий (879-912)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Киев</div>
+                <ul>
+                    <li>882 - Захват Киева и объединение Новгорода и Киева</li>
+                    <li>907 - Поход на Константинополь</li>
+                    <li>Создание единого Древнерусского государства</li>
+                </ul>
+                <button class="more-info" data-ruler="oleg">Подробнее...</button>
+            </div>
+
+            <div class="event-card left" id="vladimir1" data-period="early" data-types="culture,reform">
+                <h3>Владимир Святой (980-1015)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Киев</div>
+                <p>Важные события:</p>
+                <ul>
+                    <li>988 - Крещение Руси</li>
+                    <li>Строительство первых каменных церквей</li>
+                    <li>Укрепление границ государства</li>
+                </ul>
+                <button class="more-info" data-ruler="vladimir1">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="yaroslav" data-period="early" data-types="culture,reform">
+                <h3>Ярослав Мудрый (1019-1054)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Киев</div>
+                <ul>
+                    <li>Создание первого свода законов "Русская Правда"</li>
+                    <li>Развитие культуры и образования</li>
+                    <li>Строительство Софийского собора в Киеве</li>
+                    <li>Укрепление международных связей</li>
+                </ul>
+                <button class="more-info" data-ruler="yaroslav">Подробнее...</button>
+            </div>
+
+            <div class="event-card left" id="alexander" data-period="early" data-types="war">
+                <h3>Александр Невский (1252-1263)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Новгород</div>
+                <ul>
+                    <li>1240 - Невская битва</li>
+                    <li>1242 - Ледовое побоище</li>
+                    <li>Дипломатия с Золотой Ордой</li>
+                    <li>Канонизирован Русской православной церковью</li>
+                </ul>
+                <button class="more-info" data-ruler="alexander">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="dmitry" data-period="early" data-types="war">
+                <h3>Дмитрий Донской (1359-1389)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1380 - Куликовская битва</li>
+                    <li>Укрепление Московского княжества</li>
+                    <li>Начало борьбы за освобождение от ордынского ига</li>
+                </ul>
+                <button class="more-info" data-ruler="dmitry">Подробнее...</button>
+            </div>
+
+            <div class="event-card left" id="ivan3" data-period="early" data-types="reform,territory">
+                <h3>Иван III Великий (1462-1505)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1480 - Стояние на Угре (освобождение от ордынского ига)</li>
+                    <li>1497 - Принятие Судебника</li>
+                    <li>Строительство Московского Кремля</li>
+                    <li>Объединение русских земель вокруг Москвы</li>
+                </ul>
+                <button class="more-info" data-ruler="ivan3">Подробнее...</button>
+            </div>
+
+            <div class="period-block" data-period="tsardom">
+                <h3>Царский период (1547-1721)</h3>
+                <p>От венчания Ивана IV на царство до провозглашения Российской империи Петром I.</p>
+            </div>
+
+            <div class="event-card left" id="ivan4" data-period="tsardom" data-types="war,reform">
+                <h3>Иван IV Грозный (1533-1584)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Казань</div>
+                <p>Важные события:</p>
+                <ul>
+                    <li>1547 - Венчание на царство</li>
+                    <li>1552 - Взятие Казани</li>
+                    <li>1558-1583 - Ливонская война</li>
+                    <li>1565-1572 - Опричнина</li>
+                    <li>1581 - Начало покорения Сибири</li>
+                </ul>
+                <button class="more-info" data-ruler="ivan4">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="boris" data-period="tsardom" data-types="reform">
+                <h3>Борис Годунов (1598-1605)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1598 - Избран Земским собором</li>
+                    <li>Развитие городов и торговли</li>
+                    <li>1601-1603 - Великий голод</li>
+                    <li>Начало Смутного времени</li>
+                </ul>
+                <button class="more-info" data-ruler="boris">Подробнее...</button>
+            </div>
+
+            <div class="event-card left" id="mikhail" data-period="tsardom" data-types="reform">
+                <h3>Михаил Фёдорович (1613-1645)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1613 - Избран Земским собором, основатель династии Романовых</li>
+                    <li>Восстановление страны после Смуты</li>
+                    <li>Заключение Столбовского мира со Швецией</li>
+                </ul>
+                <button class="more-info" data-ruler="mikhail">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="alexei" data-period="tsardom" data-types="reform,war">
+                <h3>Алексей Михайлович (1645-1676)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1649 - Соборное уложение</li>
+                    <li>1654 - Воссоединение с Украиной</li>
+                    <li>Церковная реформа и раскол</li>
+                    <li>Войны с Польшей и Швецией</li>
+                </ul>
+                <button class="more-info" data-ruler="alexei">Подробнее...</button>
+            </div>
+
+            <div class="period-block" data-period="empire">
+                <h3>Имперский период (1721-1917)</h3>
+                <p>От провозглашения Российской империи до Февральской революции.</p>
+            </div>
+
+            <div class="event-card left" id="peter1" data-period="empire" data-types="reform,war,culture">
+                <h3>Пётр I Великий (1682-1725)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Санкт-Петербург</div>
+                <p>Основные события:</p>
+                <ul>
+                    <li>1703 - Основание Санкт-Петербурга</li>
+                    <li>1700-1721 - Северная война</li>
+                    <li>1721 - Провозглашение Империи</li>
+                    <li>Реформы государственного управления, армии, культуры</li>
+                </ul>
+                <button class="more-info" data-ruler="peter1">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="catherine2" data-period="empire" data-types="reform,culture,territory">
+                <h3>Екатерина II Великая (1762-1796)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Санкт-Петербург</div>
+                <ul>
+                    <li>1767 - Создание Уложенной комиссии</li>
+                    <li>1773-1775 - Восстание Пугачёва</li>
+                    <li>1785 - Жалованные грамоты дворянству и городам</li>
+                    <li>Присоединение Крыма и Новороссии</li>
+                    <li>Основание Эрмитажа</li>
+                </ul>
+                <button class="more-info" data-ruler="catherine2">Подробнее...</button>
+            </div>
+
+            <div class="event-card left" id="alexander1" data-period="empire" data-types="war,reform">
+                <h3>Александр I (1801-1825)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Санкт-Петербург</div>
+                <ul>
+                    <li>1812 - Отечественная война</li>
+                    <li>1814-1815 - Венский конгресс</li>
+                    <li>Реформы государственного управления</li>
+                    <li>Создание военных поселений</li>
+                </ul>
+                <button class="more-info" data-ruler="alexander1">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="alexander2" data-period="empire" data-types="reform">
+                <h3>Александр II (1855-1881)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1861 - Отмена крепостного права</li>
+                    <li>1864 - Судебная реформа</li>
+                    <li>1874 - Военная реформа</li>
+                    <li>1877-1878 - Русско-турецкая война</li>
+                    <li>1881 - Убийство народовольцами</li>
+                </ul>
+                <button class="more-info" data-ruler="alexander2">Подробнее...</button>
+            </div>
+
+            <div class="event-card left" id="nicholas2" data-period="empire" data-types="war,reform">
+                <h3>Николай II (1894-1917)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Санкт-Петербург</div>
+                <ul>
+                    <li>1904-1905 - Русско-японская война</li>
+                    <li>1905 - Первая русская революция</li>
+                    <li>1914-1917 - Первая мировая война</li>
+                    <li>1917 - Февральская революция, отречение</li>
+                </ul>
+                <button class="more-info" data-ruler="nicholas2">Подробнее...</button>
+            </div>
+
+            <div class="period-block" data-period="soviet">
+                <h3>Советский период (1917-1991)</h3>
+                <p>От Октябрьской революции до распада СССР.</p>
+            </div>
+
+            <div class="event-card right" id="lenin" data-period="soviet" data-types="reform,war">
+                <h3>В.И. Ленин (1917-1924)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1917 - Октябрьская революция</li>
+                    <li>1918-1922 - Гражданская война</li>
+                    <li>1921 - Новая экономическая политика</li>
+                    <li>1922 - Образование СССР</li>
+                </ul>
+                <button class="more-info" data-ruler="lenin">Подробнее...</button>
+            </div>
+
+            <div class="event-card left" id="stalin" data-period="soviet" data-types="war,reform">
+                <h3>И.В. Сталин (1924-1953)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1928 - Начало индустриализации</li>
+                    <li>1930-е - Коллективизация сельского хозяйства</li>
+                    <li>1941-1945 - Великая Отечественная война</li>
+                    <li>1949 - Создание ядерного оружия</li>
+                    <li>Формирование социалистического лагеря</li>
+                </ul>
+                <button class="more-info" data-ruler="stalin">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="khrushchev" data-period="soviet" data-types="reform,culture">
+                <h3>Н.С. Хрущёв (1953-1964)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1956 - XX съезд КПСС, разоблачение культа личности</li>
+                    <li>1961 - Первый полёт человека в космос</li>
+                    <li>1962 - Карибский кризис</li>
+                    <li>Освоение целины</li>
+                </ul>
+                <button class="more-info" data-ruler="khrushchev">Подробнее...</button>
+            </div>
+
+            <div class="event-card left" id="brezhnev" data-period="soviet" data-types="reform,war">
+                <h3>Л.И. Брежнев (1964-1982)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1968 - Пражская весна</li>
+                    <li>1979 - Ввод войск в Афганистан</li>
+                    <li>1970-е - Разрядка международной напряжённости</li>
+                    <li>Эпоха "застоя"</li>
+                </ul>
+                <button class="more-info" data-ruler="brezhnev">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="gorbachev" data-period="soviet" data-types="reform">
+                <h3>М.С. Горбачёв (1985-1991)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1985-1991 - Перестройка</li>
+                    <li>1986 - Авария на Чернобыльской АЭС</li>
+                    <li>1989 - Вывод войск из Афганистана</li>
+                    <li>1991 - Распад СССР</li>
+                </ul>
+                <button class="more-info" data-ruler="gorbachev">Подробнее...</button>
+            </div>
+
+            <div class="period-block" data-period="modern">
+                <h3>Современная Россия (с 1991)</h3>
+                <p>Российская Федерация после распада СССР.</p>
+            </div>
+
+            <div class="event-card left" id="yeltsin" data-period="modern" data-types="reform">
+                <h3>Б.Н. Ельцин (1991-1999)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>1991 - Распад СССР</li>
+                    <li>1993 - Конституционный кризис</li>
+                    <li>1996 - Президентские выборы</li>
+                    <li>Экономические реформы 1990-х</li>
+                </ul>
+                <button class="more-info" data-ruler="yeltsin">Подробнее...</button>
+            </div>
+
+            <div class="event-card right" id="putin" data-period="modern" data-types="reform,war">
+                <h3>В.В. Путин (2000-н.в.)</h3>
+                <div class="location-marker" style="top: 10px; right: 10px;">Москва</div>
+                <ul>
+                    <li>2000 - Вступление в должность</li>
+                    <li>2008 - Война в Южной Осетии</li>
+                    <li>2014 - Возвращение Крыма</li>
+                    <li>2020 - Поправки к Конституции</li>
+                    <li>2022 - Специальная военная операция</li>
+                </ul>
+                <button class="more-info" data-ruler="putin">Подробнее...</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="ruler-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modal-title">Иван Грозный</h2>
+            <div id="modal-period" class="period-label"></div>
+            <div id="modal-content">
+                <p>Загрузка информации...</p>
+            </div>
+            <div class="modal-media" id="modal-media">
+                <!-- Здесь будут изображения и другие медиа -->
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: linear-gradient(135deg, #34495e, #2c3e50); color: white; text-align: center; padding: 2rem; margin-top: 2rem;">
+        <p style="margin-bottom: 1rem;">Система визуализации исторических событий © 2023</p>
+        <p style="opacity: 0.8;">Используйте фильтры для навигации по периодам и типам событий</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Данные для модальных окон
+        const rulersData = {
+            rurik: {
+                title: "Рюрик (862-879)",
+                period: "Ранний период",
+                content: `
+                    <p>Рюрик - легендарный варяг, призванный на княжение в Новгород в 862 году, основатель династии Рюриковичей.</p>
+                    <p><strong>Основные достижения:</strong></p>
+                    <ul>
+                        <li>Объединение северных славянских племён</li>
+                        <li>Заложение основ древнерусской государственности</li>
+                        <li>Начало княжеской династии, правившей более 700 лет</li>
+                    </ul>
+                    <p>Точное происхождение Рюрика остаётся предметом научных дискуссий. Согласно "Повести временных лет", он был призван вместе с братьями Синеусом и Трувором для прекращения междоусобиц.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Ryurik.jpg", caption: "Рюрик"},
+                    {type: "image", src: "img/Ryurikovo_Gorodische.jpg", caption: "Рюриково городище"}
+                ]
+            },
+            oleg: {
+                title: "Олег Вещий (879-912)",
+                period: "Ранний период",
+                content: `
+                    <p>Олег - преемник Рюрика, князь новгородский и киевский, объединитель древнерусских земель.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>882 - Захват Киева и объединение Новгорода и Киева</li>
+                        <li>907 - Успешный поход на Константинополь</li>
+                        <li>Создание единого Древнерусского государства</li>
+                        <li>Заключение выгодных торговых договоров с Византией</li>
+                    </ul>
+                    <p>Согласно летописи, получил прозвище "Вещий" после похода на Византию, когда предсказал гибель своим воинам от отравленных византийцами пищи и вина.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Vasnetsov_oleg.jpg", caption: "Олег у костей коня. В. Васнецов"},
+                    {type: "image", src: "img/Kiev_St_Sophia_Cathedral.jpg", caption: "Софийский собор в Киеве"}
+                ]
+            },
+            vladimir1: {
+                title: "Владимир Святой (980-1015)",
+                period: "Ранний период",
+                content: `
+                    <p>Владимир I Святославич - князь киевский, креститель Руси.</p>
+                    <p><strong>Основные достижения:</strong></p>
+                    <ul>
+                        <li>988 - Крещение Руси</li>
+                        <li>Строительство первых каменных церквей</li>
+                        <li>Укрепление границ государства</li>
+                        <li>Развитие культуры и образования</li>
+                    </ul>
+                    <p>До крещения был известен как Владимир Красное Солнышко, имел много жён и наложниц. После крещения активно распространял христианство, строил церкви и школы. Канонизирован Русской православной церковью.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Vladimir_I_of_Kiev.jpg", caption: "Владимир Святой"},
+                    {type: "image", src: "img/Baptism_of_St._Vladimir.jpg", caption: "Крещение Владимира"}
+                ]
+            },
+            yaroslav: {
+                title: "Ярослав Мудрый (1019-1054)",
+                period: "Ранний период",
+                content: `
+                    <p>Ярослав Владимирович - великий князь киевский, один из самых выдающихся правителей Древней Руси.</p>
+                    <p><strong>Основные достижения:</strong></p>
+                    <ul>
+                        <li>Создание первого свода законов "Русская Правда"</li>
+                        <li>Развитие культуры и образования</li>
+                        <li>Строительство Софийского собора в Киеве</li>
+                        <li>Укрепление международных связей через династические браки</li>
+                        <li>Разгром печенегов в 1036 году</li>
+                    </ul>
+                    <p>При Ярославе Киевская Русь достигла своего расцвета, Киев стал одним из крупнейших городов Европы.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Yaroslav_reconstruction.jpg", caption: "Реконструкция облика Ярослава Мудрого"},
+                    {type: "image", src: "img/Saint_Sophia_Cathedral_in_Kyiv.jpg", caption: "Софийский собор в Киеве"}
+                ]
+            },
+            alexander: {
+                title: "Александр Невский (1252-1263)",
+                period: "Ранний период",
+                content: `
+                    <p>Александр Ярославич Невский - князь новгородский, великий князь киевский и владимирский.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1240 - Невская битва (победа над шведами)</li>
+                        <li>1242 - Ледовое побоище (разгром немецких рыцарей)</li>
+                        <li>Дипломатия с Золотой Ордой</li>
+                        <li>Канонизирован Русской православной церковью</li>
+                    </ul>
+                    <p>Александр Невский проявил себя как талантливый полководец и мудрый политик, сумевший сохранить русские земли в трудный период монголо-татарского ига.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Alexander_Nevsky_Lavra.jpg", caption: "Мощи Александра Невского"},
+                    {type: "image", src: "img/Battle_on_the_Ice.jpg", caption: "Ледовое побоище"}
+                ]
+            },
+            dmitry: {
+                title: "Дмитрий Донской (1359-1389)",
+                period: "Ранний период",
+                content: `
+                    <p>Дмитрий Иванович Донской - великий князь московский и владимирский.</p>
+                    <p><strong>Основные достижения:</strong></p>
+                    <ul>
+                        <li>1380 - Куликовская битва (победа над Мамаем)</li>
+                        <li>Укрепление Московского княжества</li>
+                        <li>Начало борьбы за освобождение от ордынского ига</li>
+                        <li>Строительство белокаменного Кремля в Москве</li>
+                    </ul>
+                    <p>Дмитрий Донской впервые передал великое княжение своему сыну Василию I без санкции Золотой Орды, что стало важным шагом к независимости.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Dmitry_Donskoy.jpg", caption: "Дмитрий Донской"},
+                    {type: "image", src: "img/Kulikovo_Battle_monument.jpg", caption: "Памятник на Куликовом поле"}
+                ]
+            },
+            ivan3: {
+                title: "Иван III Великий (1462-1505)",
+                period: "Ранний период",
+                content: `
+                    <p>Иван III Васильевич - великий князь московский, объединитель русских земель.</p>
+                    <p><strong>Основные достижения:</strong></p>
+                    <ul>
+                        <li>1480 - Стояние на Угре (освобождение от ордынского ига)</li>
+                        <li>1497 - Принятие Судебника - первого свода законов единого государства</li>
+                        <li>Объединение русских земель вокруг Москвы</li>
+                        <li>Строительство Московского Кремля</li>
+                        <li>Принятие титула "Государь всея Руси"</li>
+                    </ul>
+                    <p>При Иване III завершилось формирование территории единого Российского государства, Москва стала его столицей.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Ivan_III.jpg", caption: "Иван III"},
+                    {type: "image", src: "img/Moscow_Kremlin_after_1485.jpg", caption: "Московский Кремль при Иване III"}
+                ]
+            },
+            ivan4: {
+                title: "Иван IV Грозный (1533-1584)",
+                period: "Царский период",
+                content: `
+                    <p>Первый русский царь, коронованный в 1547 году. Правление Ивана Грозного было отмечено как крупными успехами во внешней политике, так и внутренним террором.</p>
+                    <p><strong>Основные события правления:</strong></p>
+                    <ul>
+                        <li>1547 - Венчание на царство</li>
+                        <li>1552 - Взятие Казани и присоединение Казанского ханства</li>
+                        <li>1556 - Присоединение Астраханского ханства</li>
+                        <li>1558-1583 - Ливонская война за выход к Балтийскому морю</li>
+                        <li>1565-1572 - Опричнина с массовыми репрессиями</li>
+                        <li>1581 - Начало похода Ермака в Сибирь</li>
+                    </ul>
+                    <p>Иван IV провёл важные реформы (Судебник 1550, создание стрелецкого войска), но его позднее правление было омрачено жестокостью и подозрительностью.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Ivan_the_Terrible.jpg", caption: "Портрет Ивана Грозного работы В. Васнецова"},
+                    {type: "image", src: "img/Siege_of_Kazan.png", caption: "Взятие Казани в 1552 году"}
+                ]
+            },
+            boris: {
+                title: "Борис Годунов (1598-1605)",
+                period: "Царский период",
+                content: `
+                    <p>Борис Фёдорович Годунов - первый русский царь, избранный Земским собором.</p>
+                    <p><strong>Основные события правления:</strong></p>
+                    <ul>
+                        <li>1598 - Избран Земским собором после пресечения династии Рюриковичей</li>
+                        <li>Развитие городов и торговли</li>
+                        <li>1601-1603 - Великий голод</li>
+                        <li>Начало Смутного времени</li>
+                        <li>Активная внешняя политика на Западе</li>
+                    </ul>
+                    <p>Борис Годунов был талантливым администратором, но его правление совпало с тяжелейшим кризисом, что привело к Смуте.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Boris_Godunov.jpg", caption: "Борис Годунов. Парсуна XVII века"},
+                    {type: "image", src: "img/Moscow_Kremlin.jpg", caption: "Московский Кремль в начале XVII века"}
+                ]
+            },
+            mikhail: {
+                title: "Михаил Фёдорович (1613-1645)",
+                period: "Царский период",
+                content: `
+                    <p>Михаил Фёдорович Романов - первый царь из династии Романовых, избранный Земским собором в 1613 году.</p>
+                    <p><strong>Основные достижения:</strong></p>
+                    <ul>
+                        <li>1613 - Избран Земским собором, основатель династии Романовых</li>
+                        <li>Восстановление страны после Смутного времени</li>
+                        <li>1617 - Столбовский мир со Швецией</li>
+                        <li>1634 - Поляновский мир с Польшей</li>
+                        <li>Создание первых регулярных полков иноземного строя</li>
+                    </ul>
+                    <p>Правление Михаила Фёдоровича ознаменовало конец Смуты и начало восстановления Российского государства.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Mikhail_I_of_Russia.jpg", caption: "Михаил Фёдорович. Гравюра XVII века"},
+                    {type: "image", src: "img/Zemsky_Sobor.png", caption: "Земский собор 1613 года"}
+                ]
+            },
+            alexei: {
+                title: "Алексей Михайлович (1645-1676)",
+                period: "Царский период",
+                content: `
+                    <p>Алексей Михайлович Тишайший - второй царь из династии Романовых.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1649 - Соборное уложение (первый систематизированный свод законов)</li>
+                        <li>1654 - Воссоединение с Украиной</li>
+                        <li>1667 - Андрусовское перемирие с Польшей</li>
+                        <li>Церковная реформа и раскол</li>
+                        <li>Войны с Польшей и Швецией</li>
+                    </ul>
+                    <p>При Алексее Михайловиче началось формирование абсолютизма, произошёл церковный раскол, значительно расширились границы государства.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Alexis_I_of_Russia.jpg", caption: "Алексей Михайлович. Парсуна XVII века"},
+                    {type: "image", src: "img/Sobornoye_Ulozheniye.jpg", caption: "Соборное уложение 1649 года"}
+                ]
+            },
+            peter1: {
+                title: "Пётр I Великий (1682-1725)",
+                period: "Имперский период",
+                content: `
+                    <p>Последний царь всея Руси (с 1682 года) и первый Император Всероссийский (с 1721 года). Провёл масштабные реформы, превратив Россию в европейскую державу.</p>
+                    <p><strong>Основные достижения:</strong></p>
+                    <ul>
+                        <li>1703 - Основание Санкт-Петербурга</li>
+                        <li>1700-1721 - Северная война и выход к Балтике</li>
+                        <li>Реформы армии, государственного управления, культуры</li>
+                        <li>1721 - Провозглашение Российской империи</li>
+                        <li>Создание флота и развитие промышленности</li>
+                    </ul>
+                    <p>Пётр I лично участвовал в военных кампаниях, изучал кораблестроение в Европе, ввёл новое летоисчисление и множество других инноваций, часто насильственными методами.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Peter_der-Grosse.jpg", caption: "Портрет Петра I"},
+                    {type: "image", src: "img/Battle_of_Poltava.jpg", caption: "Полтавская битва 1709 года"}
+                ]
+            },
+            catherine2: {
+                title: "Екатерина II Великая (1762-1796)",
+                period: "Имперский период",
+                content: `
+                    <p>Екатерина II Алексеевна - императрица всероссийская, принцесса Ангальт-Цербстская по происхождению.</p>
+                    <p><strong>Основные достижения:</strong></p>
+                    <ul>
+                        <li>1767 - Создание Уложенной комиссии</li>
+                        <li>1773-1775 - Подавление восстания Пугачёва</li>
+                        <li>1785 - Жалованные грамоты дворянству и городам</li>
+                        <li>Присоединение Крыма и Новороссии</li>
+                        <li>Основание Эрмитажа и развитие культуры</li>
+                        <li>Разделы Речи Посполитой</li>
+                    </ul>
+                    <p>Эпоха Екатерины II считается "золотым веком" Российской империи, временем просвещённого абсолютизма и территориального расширения.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Ekaterina_II.jpg", caption: "Портрет Екатерины II работы Ф. Рокотова"},
+                    {type: "image", src: "img/Russian_Empire_1796.png", caption: "Территория России к концу правления Екатерины II"}
+                ]
+            },
+            alexander1: {
+                title: "Александр I (1801-1825)",
+                period: "Имперский период",
+                content: `
+                    <p>Александр I Павлович - император всероссийский, старший сын Павла I.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1812 - Отечественная война с Наполеоном</li>
+                        <li>1814-1815 - Венский конгресс</li>
+                        <li>Реформы государственного управления</li>
+                        <li>Создание военных поселений</li>
+                        <li>Присоединение Финляндии и части Польши</li>
+                    </ul>
+                    <p>Александр I вошёл в историю как победитель Наполеона и один из организаторов Венского конгресса, установившего новый порядок в Европе.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Alexander_I_of_Russia.jpg", caption: "Портрет Александра I"},
+                    {type: "image", src: "img/Borodino.jpg", caption: "Бородинская битва"}
+                ]
+            },
+            alexander2: {
+                title: "Александр II (1855-1881)",
+                period: "Имперский период",
+                content: `
+                    <p>Александр II Николаевич - император всероссийский, вошедший в историю как Освободитель.</p>
+                    <p><strong>Основные реформы:</strong></p>
+                    <ul>
+                        <li>1861 - Отмена крепостного права</li>
+                        <li>1864 - Судебная реформа</li>
+                        <li>1870 - Земская реформа</li>
+                        <li>1874 - Военная реформа</li>
+                        <li>1877-1878 - Русско-турецкая война</li>
+                    </ul>
+                    <p>Александр II провёл масштабные либеральные реформы, но был убит народовольцами в 1881 году. При нём завершилось присоединение Кавказа и Средней Азии.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Alexander_II_of_Russia_photo.jpg", caption: "Фотография Александра II"},
+                    {type: "image", src: "img/Manifest_1861.jpg", caption: "Манифест об отмене крепостного права"}
+                ]
+            },
+            nicholas2: {
+                title: "Николай II (1894-1917)",
+                period: "Имперский период",
+                content: `
+                    <p>Николай II Александрович - последний император всероссийский из династии Романовых.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1904-1905 - Русско-японская война</li>
+                        <li>1905 - Первая русская революция</li>
+                        <li>1906 - Создание Государственной думы</li>
+                        <li>1914-1917 - Первая мировая война</li>
+                        <li>1917 - Февральская революция, отречение от престола</li>
+                    </ul>
+                    <p>Правление Николая II было ознаменовано экономическим подъёмом и одновременно ростом революционных настроений, завершившимся революциями 1917 года.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Nicholas_II.jpg", caption: "Портрет Николая II"},
+                    {type: "image", src: "img/Bloody_Sunday_1905.jpg", caption: "Кровавое воскресенье 1905 года"}
+                ]
+            },
+            lenin: {
+                title: "Владимир Ильич Ленин (1917-1924)",
+                period: "Советский период",
+                content: `
+                    <p>Владимир Ильич Ульянов (Ленин) - основатель Советского государства, лидер большевиков.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1917 - Октябрьская революция</li>
+                        <li>1918-1922 - Гражданская война</li>
+                        <li>1921 - Новая экономическая политика (НЭП)</li>
+                        <li>1922 - Образование СССР</li>
+                        <li>Создание однопартийной системы</li>
+                    </ul>
+                    <p>Ленин разработал теорию социалистической революции и построения социализма, стал идеологом и практиком мировой революции.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Lenin_in_1920.jpg", caption: "Ленин в 1920 году"},
+                    {type: "image", src: "img/Lenin_and_stalin_crop.jpg", caption: "Ленин и Сталин в 1922 году"}
+                ]
+            },
+            stalin: {
+                title: "Иосиф Виссарионович Сталин (1924-1953)",
+                period: "Советский период",
+                content: `
+                    <p>Иосиф Виссарионович Сталин - советский государственный, политический и военный деятель.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1928 - Начало индустриализации</li>
+                        <li>1930-е - Коллективизация сельского хозяйства</li>
+                        <li>1937-1938 - "Большой террор"</li>
+                        <li>1941-1945 - Великая Отечественная война</li>
+                        <li>1949 - Создание советского ядерного оружия</li>
+                        <li>Формирование социалистического лагеря</li>
+                    </ul>
+                    <p>Сталинская эпоха оставила глубокий след в истории страны, сочетая грандиозные достижения в промышленности, науке и военной сфере с трагическими страницами репрессий.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Joseph_Stalin_1937-1938.jpg", caption: "И.В. Сталин в конце 1930-х"},
+                    {type: "image", src: "img/Soviet_industrialisation.jpg", caption: "Строительство ДнепроГЭС - символ индустриализации"}
+                ]
+            },
+            khrushchev: {
+                title: "Никита Сергеевич Хрущёв (1953-1964)",
+                period: "Советский период",
+                content: `
+                    <p>Никита Сергеевич Хрущёв - Первый секретарь ЦК КПСС, Председатель Совета Министров СССР.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1956 - XX съезд КПСС, разоблачение культа личности Сталина</li>
+                        <li>1961 - Первый полёт человека в космос (Ю. Гагарин)</li>
+                        <li>1962 - Карибский кризис</li>
+                        <li>Освоение целины</li>
+                        <li>Жилищное строительство ("хрущёвки")</li>
+                    </ul>
+                    <p>Период правления Хрущёва вошёл в историю как "хрущёвская оттепель" - время относительной либерализации и реформ.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Khrushchev_at_UN_1960.jpg", caption: "Хрущёв в ООН, 1960 год"},
+                    {type: "image", src: "img/Yuri_Gagarin.jpg", caption: "Юрий Гагарин - первый космонавт"}
+                ]
+            },
+            brezhnev: {
+                title: "Леонид Ильич Брежнев (1964-1982)",
+                period: "Советский период",
+                content: `
+                    <p>Леонид Ильич Брежнев - Генеральный секретарь ЦК КПСС, Председатель Президиума Верховного Совета СССР.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1968 - Пражская весна, ввод войск в Чехословакию</li>
+                        <li>1970-е - Разрядка международной напряжённости</li>
+                        <li>1977 - Новая Конституция СССР</li>
+                        <li>1979 - Ввод войск в Афганистан</li>
+                        <li>Эпоха "застоя"</li>
+                    </ul>
+                    <p>Брежневское правление характеризовалось стабильностью и одновременно нарастанием кризисных явлений в экономике и обществе.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Brezhnev_1973.jpg", caption: "Л.И. Брежнев в 1973 году"},
+                    {type: "image", src: "img/Soviet_tanks_in_Prague.jpg", caption: "Советские танки в Праге, 1968 год"}
+                ]
+            },
+            gorbachev: {
+                title: "Михаил Сергеевич Горбачёв (1985-1991)",
+                period: "Советский период",
+                content: `
+                    <p>Михаил Сергеевич Горбачёв - последний Генеральный секретарь ЦК КПСС, первый и единственный Президент СССР.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1985-1991 - Перестройка</li>
+                        <li>1986 - Авария на Чернобыльской АЭС</li>
+                        <li>1989 - Вывод войск из Афганистана</li>
+                        <li>1990 - Введение поста Президента СССР</li>
+                        <li>1991 - Распад СССР</li>
+                    </ul>
+                    <p>Горбачёв инициировал масштабные реформы (гласность, ускорение, перестройка), которые привели к коренным изменениям в стране и мире.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Gorbachev_in_1987.jpg", caption: "М.С. Горбачёв в 1987 году"},
+                    {type: "image", src: "img/Chernobyl_reactor_after_disaster.jpg", caption: "Чернобыльская АЭС после аварии"}
+                ]
+            },
+            yeltsin: {
+                title: "Борис Николаевич Ельцин (1991-1999)",
+                period: "Современный период",
+                content: `
+                    <p>Борис Николаевич Ельцин - первый Президент Российской Федерации.</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>1991 - Распад СССР</li>
+                        <li>1993 - Конституционный кризис, расстрел Белого дома</li>
+                        <li>1996 - Президентские выборы</li>
+                        <li>1998 - Дефолт</li>
+                        <li>Экономические реформы 1990-х</li>
+                    </ul>
+                    <p>Правление Ельцина было периодом радикальных экономических и политических преобразований, сопровождавшихся кризисами и социальными потрясениями.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Yeltsin-4.jpg", caption: "Б.Н. Ельцин в 1993 году"},
+                    {type: "image", src: "img/White_House_after_1993_attack.jpg", caption: "Белый дом после событий октября 1993 года"}
+                ]
+            },
+            putin: {
+                title: "Владимир Владимирович Путин (2000-н.в.)",
+                period: "Современный период",
+                content: `
+                    <p>Владимир Владимирович Путин - Президент Российской Федерации (2000-2008, 2012-н.в.), Председатель Правительства (1999-2000, 2008-2012).</p>
+                    <p><strong>Основные события:</strong></p>
+                    <ul>
+                        <li>2000 - Вступление в должность Президента</li>
+                        <li>2008 - Война в Южной Осетии</li>
+                        <li>2014 - Возвращение Крыма в состав России</li>
+                        <li>2020 - Поправки к Конституции</li>
+                        <li>2022 - Начало специальной военной операции</li>
+                        <li>Экономические реформы и санкционное давление</li>
+                    </ul>
+                    <p>Правление Путина характеризуется укреплением государственности, централизацией власти, сложными отношениями с Западом и курсом на суверенное развитие.</p>
+                `,
+                media: [
+                    {type: "image", src: "img/Vladimir_Putin.jpg", caption: "В.В. Путин, официальный портрет"},
+                    {type: "image", src: "img/Crimea_Bridge_construction.jpg", caption: "Крымский мост - символ воссоединения"}
+                ]
+            }
+        };
+
+        // Инициализация карты
+        const map = L.map('history-map').setView([55.75, 37.62], 3);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Добавление маркеров для ключевых событий с иконками разных цветов
+        const blueIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const greenIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        const goldIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        // Маркеры для ключевых событий (синий - правление, красный - войны, зеленый - реформы, золотой - культура)
+        const markers = {
+            // Ранний период
+            rurik: L.marker([58.521, 31.275], {icon: blueIcon}).bindPopup("<b>Рюрик</b><br>862-879: Начало княжения в Новгороде"),
+            oleg: L.marker([50.45, 30.523], {icon: blueIcon}).bindPopup("<b>Олег Вещий</b><br>882: Объединение Киева и Новгорода"),
+            vladimir1: L.marker([50.45, 30.523], {icon: greenIcon}).bindPopup("<b>Крещение Руси</b><br>988: Владимир Святой"),
+            yaroslav: L.marker([50.45, 30.523], {icon: goldIcon}).bindPopup("<b>Ярослав Мудрый</b><br>1037: Софийский собор в Киеве"),
+            alexander: L.marker([59.95, 30.316], {icon: redIcon}).bindPopup("<b>Александр Невский</b><br>1240: Невская битва"),
+            nevaBattle: L.marker([59.807, 30.604], {icon: redIcon}).bindPopup("<b>Невская битва</b><br>15 июля 1240: Победа над шведами"),
+            iceBattle: L.marker([58.64, 27.81], {icon: redIcon}).bindPopup("<b>Ледовое побоище</b><br>5 апреля 1242: Разгром немецких рыцарей"),
+            dmitry: L.marker([55.75, 37.62], {icon: blueIcon}).bindPopup("<b>Дмитрий Донской</b><br>1359-1389: Великий князь"),
+            kulikovo: L.marker([53.653, 38.644], {icon: redIcon}).bindPopup("<b>Куликовская битва</b><br>8 сентября 1380: Победа над Мамаем"),
+            ivan3: L.marker([55.75, 37.62], {icon: blueIcon}).bindPopup("<b>Иван III</b><br>1462-1505: Объединение русских земель"),
+            ugra: L.marker([54.5, 36.0], {icon: greenIcon}).bindPopup("<b>Стояние на Угре</b><br>1480: Конец ордынского ига"),
+            
+            // Царский период
+            ivan4: L.marker([55.796, 49.108], {icon: redIcon}).bindPopup("<b>Взятие Казани</b><br>1552: Иван Грозный"),
+            astrakhan: L.marker([46.35, 48.04], {icon: redIcon}).bindPopup("<b>Взятие Астрахани</b><br>1556: Присоединение ханства"),
+            ermak: L.marker([58.15, 68.25], {icon: redIcon}).bindPopup("<b>Поход Ермака</b><br>1581-1585: Начало покорения Сибири"),
+            smuta: L.marker([55.75, 37.62], {icon: redIcon}).bindPopup("<b>Смутное время</b><br>1598-1613: Гражданская война"),
+            minin: L.marker([56.33, 44.0], {icon: redIcon}).bindPopup("<b>Народное ополчение</b><br>1612: Освобождение Москвы"),
+            
+            // Имперский период
+            peter1: L.marker([59.934, 30.306], {icon: blueIcon}).bindPopup("<b>Пётр I</b><br>1703: Основание Санкт-Петербурга"),
+            poltava: L.marker([49.59, 34.55], {icon: redIcon}).bindPopup("<b>Полтавская битва</b><br>1709: Разгром шведов"),
+            gangut: L.marker([59.9, 22.5], {icon: redIcon}).bindPopup("<b>Гангутское сражение</b><br>1714: Первая морская победа"),
+            catherine2: L.marker([44.952, 34.102], {icon: greenIcon}).bindPopup("<b>Екатерина II</b><br>1783: Присоединение Крыма"),
+            suvorov: L.marker([45.9, 8.9], {icon: redIcon}).bindPopup("<b>Швейцарский поход</b><br>1799: Переход Суворова через Альпы"),
+            borodino: L.marker([55.52, 35.82], {icon: redIcon}).bindPopup("<b>Бородинская битва</b><br>1812: Сражение с Наполеоном"),
+            decembrists: L.marker([59.934, 30.306], {icon: greenIcon}).bindPopup("<b>Восстание декабристов</b><br>1825: На Сенатской площади"),
+            sevastopol: L.marker([44.617, 33.525], {icon: redIcon}).bindPopup("<b>Оборона Севастополя</b><br>1854-1855: Крымская война"),
+            alexander2: L.marker([55.75, 37.62], {icon: greenIcon}).bindPopup("<b>Александр II</b><br>1861: Отмена крепостного права"),
+            transsib: L.marker([55.0, 82.0], {icon: greenIcon}).bindPopup("<b>Транссиб</b><br>1891-1916: Строительство магистрали"),
+            
+            // Советский период
+            october: L.marker([59.934, 30.306], {icon: greenIcon}).bindPopup("<b>Октябрьская революция</b><br>1917: Штурм Зимнего"),
+            civilwar: L.marker([53.2, 50.15], {icon: redIcon}).bindPopup("<b>Гражданская война</b><br>1918-1922: Бои за Самару"),
+            industrialization: L.marker([48.0, 37.8], {icon: greenIcon}).bindPopup("<b>Индустриализация</b><br>1930-е: ДнепроГЭС"),
+            ww2start: L.marker([54.5, 30.4], {icon: redIcon}).bindPopup("<b>Великая Отечественная</b><br>1941: Оборона Могилёва"),
+            stalingrad: L.marker([48.7, 44.52], {icon: redIcon}).bindPopup("<b>Сталинградская битва</b><br>1942-1943: Перелом в войне"),
+            kursk: L.marker([51.7, 36.19], {icon: redIcon}).bindPopup("<b>Курская битва</b><br>1943: Крупнейшее танковое сражение"),
+            berlin: L.marker([52.518, 13.408], {icon: redIcon}).bindPopup("<b>Штурм Берлина</b><br>1945: Конец войны"),
+            gagarin: L.marker([51.09, 45.96], {icon: goldIcon}).bindPopup("<b>Первый космонавт</b><br>1961: Старт с Байконура"),
+            
+            // Современный период
+            putin: L.marker([55.75, 37.62], {icon: blueIcon}).bindPopup("<b>В.В. Путин</b><br>2000: Вступление в должность"),
+            crimea: L.marker([44.952, 34.102], {icon: greenIcon}).bindPopup("<b>Возвращение Крыма</b><br>2014: Воссоединение с Россией"),
+            olympics: L.marker([43.402, 39.955], {icon: goldIcon}).bindPopup("<b>Сочинская олимпиада</b><br>2014: Зимние игры"),
+            svo: L.marker([48.7, 37.5], {icon: redIcon}).bindPopup("<b>Спецоперация</b><br>2022: Начало на Донбассе")
+        };
+
+        // Добавление маркеров на карту
+        Object.values(markers).forEach(marker => marker.addTo(map));
+
+        // Группы маркеров по периодам
+        const earlyMarkers = L.layerGroup([
+            markers.rurik, markers.oleg, markers.vladimir1, markers.yaroslav,
+            markers.alexander, markers.nevaBattle, markers.iceBattle,
+            markers.dmitry, markers.kulikovo, markers.ivan3, markers.ugra
+        ]);
+
+        const tsardomMarkers = L.layerGroup([
+            markers.ivan4, markers.astrakhan, markers.ermak,
+            markers.smuta, markers.minin
+        ]);
+
+        const empireMarkers = L.layerGroup([
+            markers.peter1, markers.poltava, markers.gangut,
+            markers.catherine2, markers.suvorov, markers.borodino,
+            markers.decembrists, markers.sevastopol, markers.alexander2,
+            markers.transsib
+        ]);
+
+        const sovietMarkers = L.layerGroup([
+            markers.october, markers.civilwar, markers.industrialization,
+            markers.ww2start, markers.stalingrad, markers.kursk,
+            markers.berlin, markers.gagarin
+        ]);
+
+        const modernMarkers = L.layerGroup([
+            markers.putin, markers.crimea, markers.olympics, markers.svo
+        ]);
+
+        // Контроль слоев для переключения периодов
+        const overlayMaps = {
+            "Ранний период (862-1547)": earlyMarkers,
+            "Царский период (1547-1721)": tsardomMarkers,
+            "Имперский период (1721-1917)": empireMarkers,
+            "Советский период (1917-1991)": sovietMarkers,
+            "Современный период (с 1991)": modernMarkers
+        };
+
+        L.control.layers(null, overlayMaps, {collapsed: false}).addTo(map);
+
+        // Добавление маркеров на карту
+        Object.values(markers).forEach(marker => marker.addTo(map));
+
+        // Обработчики для модального окна
+        const modal = document.getElementById('ruler-modal');
+        const closeBtn = document.querySelector('.close-modal');
+        const moreInfoBtns = document.querySelectorAll('.more-info');
+
+        moreInfoBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const rulerId = this.getAttribute('data-ruler');
+                showModal(rulerId);
+            });
+        });
+
+        closeBtn.addEventListener('click', closeModal);
+        window.addEventListener('click', (e) => e.target === modal && closeModal());
+
+        function showModal(rulerId) {
+            if (rulersData[rulerId]) {
+                const data = rulersData[rulerId];
+                document.getElementById('modal-title').textContent = data.title;
+                document.getElementById('modal-period').textContent = data.period;
+                document.getElementById('modal-content').innerHTML = data.content;
+                
+                // Загрузка медиа
+                const mediaContainer = document.getElementById('modal-media');
+                mediaContainer.innerHTML = '';
+                data.media.forEach(item => {
+                    if (item.type === 'image') {
+                        const imgDiv = document.createElement('div');
+                        imgDiv.style.flex = '1 1 300px';
+                        imgDiv.innerHTML = `
+                            <img src="${item.src}" alt="${item.caption}" style="max-width:100%; height:auto;">
+                            <p style="font-size:12px; color:#666; margin-top:5px;">${item.caption}</p>
+                        `;
+                        mediaContainer.appendChild(imgDiv);
+                    }
+                });
+
+                // Центрирование карты на соответствующем маркере
+                if (markers[rulerId]) {
+                    map.setView(markers[rulerId].getLatLng(), 6);
+                    markers[rulerId].openPopup();
+                }
+
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Фильтрация по периодам
+        const periodFilters = document.querySelectorAll('.period-filter');
+        periodFilters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                periodFilters.forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+                
+                const period = this.getAttribute('data-period');
+                filterEvents(period, 'period');
+            });
+        });
+
+        // Фильтрация по типам событий
+        const typeFilters = document.querySelectorAll('.type-filter');
+        typeFilters.forEach(filter => {
+            filter.addEventListener('click', function() {
+                typeFilters.forEach(f => f.classList.remove('active'));
+                this.classList.add('active');
+                
+                const type = this.getAttribute('data-type');
+                filterEvents(type, 'type');
+            });
+        });
+
+        function filterEvents(value, filterType) {
+            const allEvents = document.querySelectorAll('.event-card, .period-block');
+            
+            allEvents.forEach(event => {
+                if (filterType === 'period') {
+                    if (value === 'all' || event.getAttribute('data-period') === value) {
+                        event.style.display = 'block';
+                    } else {
+                        event.style.display = 'none';
+                    }
+                } else if (filterType === 'type') {
+                    if (event.classList.contains('period-block')) return;
+                    
+                    if (value === 'all' || 
+                        (event.getAttribute('data-types') && 
+                         event.getAttribute('data-types').includes(value))) {
+                        event.style.display = 'block';
+                    } else {
+                        event.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        // Анимация появления при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.event-card, .period-block').forEach((element) => {
+            observer.observe(element);
+        });
+
+        // Плавная прокрутка для бокового меню
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Подсветка активного периода в боковом меню при скролле
+        const rulerLinks = document.querySelectorAll('.ruler-link');
+        window.addEventListener('scroll', () => {
+            const fromTop = window.scrollY + 200;
+            
+            rulerLinks.forEach(link => {
+                const section = document.querySelector(link.getAttribute('href'));
+                if (section && 
+                    section.offsetTop <= fromTop && 
+                    section.offsetTop + section.offsetHeight > fromTop) {
+                    link.parentElement.style.backgroundColor = '#e6f2ff';
+                } else {
+                    link.parentElement.style.backgroundColor = '';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

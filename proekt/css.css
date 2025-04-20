@@ -1,0 +1,322 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.rulers-sidebar {
+    width: 280px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    height: 100vh;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+}
+
+.rulers-list {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.rulers-list li {
+    margin-bottom: 8px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.rulers-list li:hover {
+    background-color: #f0f5ff;
+}
+
+.rulers-list a {
+    display: block;
+    padding: 8px 12px;
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.timeline {
+    flex: 1;
+    padding: 20px 40px;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50px;
+    width: 4px;
+    background: linear-gradient(to bottom, #3498db, #9b59b6, #e74c3c);
+    border-radius: 2px;
+}
+
+.timeline-dates {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    font-weight: bold;
+    color: #7f8c8d;
+}
+
+.period-block {
+    background-color: white;
+    padding: 15px 20px;
+    margin: 30px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
+    left: 30px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.period-block.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.period-block h3 {
+    color: #2c3e50;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+    margin-bottom: 10px;
+}
+
+.event-card {
+    background-color: white;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
+    opacity: 0;
+    transition: opacity 0.5s, transform 0.5s;
+    max-width: 600px;
+}
+
+.event-card.visible {
+    opacity: 1;
+}
+
+.event-card.left {
+    transform: translateX(-20px);
+    margin-right: auto;
+    left: 30px;
+    border-left: 4px solid #3498db;
+}
+
+.event-card.right {
+    transform: translateX(20px);
+    margin-left: auto;
+    left: -30px;
+    border-right: 4px solid #e74c3c;
+}
+
+.event-card.visible.left {
+    transform: translateX(0);
+}
+
+.event-card.visible.right {
+    transform: translateX(0);
+}
+
+.event-card h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.event-card ul {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.event-card ul li {
+    margin-bottom: 6px;
+}
+
+.more-info {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.more-info:hover {
+    background-color: #2980b9;
+}
+
+.location-marker {
+    position: absolute;
+    background-color: #e74c3c;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+#history-map {
+    height: 400px;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.filters {
+    margin-top: 30px;
+}
+
+.filter-group {
+    margin-bottom: 20px;
+}
+
+.filter-group h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-btn {
+    padding: 6px 12px;
+    background-color: #ecf0f1;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.filter-btn:hover {
+    background-color: #d5dbdb;
+}
+
+.filter-btn.active {
+    background-color: #3498db;
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    width: 80%;
+    max-width: 900px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+.period-label {
+    display: inline-block;
+    background-color: #3498db;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.modal-media {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .rulers-sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+    
+    .timeline::before {
+        left: 20px;
+    }
+    
+    .event-card.left, 
+    .event-card.right {
+        left: 0;
+        max-width: 100%;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+}
+
+/* Цвета для разных периодов */
+.period-early { background-color: #f8d7da; }
+.period-tsardom { background-color: #fff3cd; }
+.period-empire { background-color: #d1ecf1; }
+.period-soviet { background-color: #d4edda; }
+.period-modern { background-color: #e2e3e5; }
+
+/* Иконки для типов событий */
+.event-war::before { content: '⚔️'; margin-right: 5px; }
+.event-reform::before { content: '📜'; margin-right: 5px; }
+.event-culture::before { content: '🎨'; margin-right: 5px; }
+.event-rule::before { content: '👑'; margin-right: 5px; }
+.event-territory::before { content: '🗺️'; margin-right: 5px; }
